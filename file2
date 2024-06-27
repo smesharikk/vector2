@@ -34,7 +34,7 @@ class CyberdyanskBank:
 
     def calculate_cashback(self, shop, amount):
         # Исключение перевода через СБП из начисления кэшбэка
-        if (shop == 'СБП') or (amount > 0):
+        if shop == 'СБП' or amount > 0:
             return 0
         # Получение процента кэшбэка для магазина, либо использование значения по умолчанию
         percentage = self.cashback_rules.get(
@@ -90,4 +90,10 @@ print(f"Current balance: {current_balance}")
 history = bank.get_history()
 print("Purchase history:")
 for record in history:
-    print(*record)
+    print(record)
+
+# Проверка начисления кэшбэка для перевода через СБП
+test_purchase = ('СБП', -1000)
+cashback = bank.calculate_cashback(test_purchase[0], test_purchase[1])
+print(
+    f"Cashback for {test_purchase[0]} with amount {test_purchase[1]}: {cashback}")
